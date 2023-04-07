@@ -1,0 +1,21 @@
+function secondTask
+A=[0,1;-5,-2];
+B=[0;1];
+x=[0;0];
+h=0.1;
+n=100;
+t1=0;
+t(1)=0;
+x1(1)=0;
+x2(1)=0;
+A2=expm(A*h);
+for i=2:n
+    x=A2*x+(h/2)*(A2*B*cos(t1)+B*2*cos(t1+h));
+    x1(i)=x(1);
+    x2(i)=x(2);
+    t1=t1+h;
+    t(i)=t1;
+end
+plot(t,x1,'r',t,x2,'b')
+
+end

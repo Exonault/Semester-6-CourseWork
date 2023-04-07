@@ -1,0 +1,52 @@
+function secondTask
+secondTask1
+secondTask2
+
+end
+
+
+function secondTask1
+A = [0 1; 0 -3];
+expA = expm(A);
+
+t = linspace(0, 10,100);
+x = t.*exp(-2.*t);
+y0 = [0; 0];
+
+y = zeros(length(y0), length(t));
+y(:,1) = y0;
+
+for i=2:length(t)
+    int = [0; 0];
+    for j=1:i-1
+        int = int + expm(A*(t(i)-t(j))) * [0; x(j)*exp(-2*t(j))];
+    end
+    y(:,i) = expA*(y0 + int);
+end
+
+figure(1), plot(t, y(1,:));
+xlabel('t');
+ylabel('y(t)');
+end
+
+function secondTask2
+A = [0, 1; 0, -3]; % матрица на коефициенти
+B = @(x)[0; myFunction(x)]; % свободни коефициенти
+expA = expm(A); % матрична експонента
+
+y0 = [0; 0];% начални условия
+tspan = [0, 10];
+t = linspace(tspan(1), tspan(2), 100); % създаване на масив от времеви точки
+y = zeros(length(y0), length(t)); % създаване на масив за съхранение на резултатите
+
+for i = 1:length(t)
+    y(:,i) = expA * y0 + integral(@(s) expm(A*(t(i)-s)) * B(s), 0, t(i), 'ArrayValued', true);
+end
+
+figure(2),plot(t, y(1,:));
+end
+
+
+function f = myFunction(x)
+f = x*exp(-2*x);
+end

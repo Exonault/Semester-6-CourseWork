@@ -76,21 +76,25 @@
 		\text{където:} \nonumber \\
 		f(x,y_1,y_2) = -axy_2 - x^2y_1 \quad a=0.05 \quad y_{20} = -\frac{1}{6} \nonumber
 	\end{gather}
+
 \subsection{Задача 2}
 Да се сведе до система и да се реши по метода на матричната експонента уравнението при нулеви начални условия
 	\begin{equation}
 	y''+3y'=xe^{-2x}
 	\end{equation}
+
 \subsection{Задача 3}
 Да се реши граничната задача по метода на крайните разлики
 	\begin{equation}
-	x'' + \frac{1}{t} x' + \left( \frac{16}{t^2}\right) x = \sin \left( \frac{1}{t^2}\right) \qquad t \in [1;4]; \, x(1) = -0.3 ; \, x(4) = 0.4
+	x'' + \frac{1}{t} x' + \left( \frac{16}{t^2}\right) x = \sin \left( \frac{1}{t^2}\right) \quad t \in [1;4]; \, x(1) = -0.3 ; \, x(4) = 0.4
 	\end{equation}
+
 \subsection{Задача 4}
 Да се реши граничната задача по метода на стрелбата
 	\begin{equation}
-	x'' + \frac{1}{t} x' + \left( \frac{16}{t^2}\right) x = \sin \left( \frac{1}{t^2}\right) \qquad t \in [1;4]; \, x(1) = -0.3 ; \, x(4) = 0.4
+	x'' + \frac{1}{t} x' + \left( \frac{16}{t^2}\right) x = \sin \left( \frac{1}{t^2}\right) \quad t \in [1;4]; \, x(1) = -0.3 ; \, x(4) = 0.4
 	\end{equation}
+
 \newpage
 \section{Решения}
 \subsection{Задача 1}
@@ -134,14 +138,14 @@ Mетодът на Рунге-Кута от 4ти ред се използва �
 	x0 = 0;
 	% Дефиниране на стъпката и броя на стъпките
 	h = 0.1;
-	n = 100;
+	n = 150;
 	% Използване на RK4 функцията
 	[x, y] = RK4(@system, x0, y0, h, n);
-	% Графика на резултатите
-	plot(x,y(1,:),x,y(2,:));
+	figure(1),plot(x,y(1,:),x,y(2,:));
 	title('Решение на системата по Рунге-Кута');
 	legend('y1', 'y2', 'Location', 'southwest', 'Orientation', 'vertical');
 	xlabel('x');
+	ylabel('y');
 	end
 	
 	function [x, y] = RK4(f, x0, y0, h, n)
@@ -169,10 +173,43 @@ Mетодът на Рунге-Кута от 4ти ред се използва �
 	end
 	\end{verbatim}
 
-\includegraphics [width=4in]{firstTask_01.eps}
+\includegraphics{firstTask_01.eps}
 
 \newpage
 \subsection{Задача 2}
+TODO: Добави инфо
+	\begin{verbatim}
+	function secondTask
+	A = [0, 1; 0, -3]; % матрица на коефициенти
+	B = @(x)[0; myFunction(x)]; % свободни коефициенти
+	expA = expm(A); % матрична експонента
+	
+	% начални условия
+	y0 = [0; 0];
+	% създаване на масив от времеви точки
+	t = linspace(0, 5, 100);
+	% създаване на масив за съхранение на резултатите
+	y = zeros(length(y0), length(t));
+	
+	for i = 1:length(t)
+	    integrand = @(s) expm(A*(t(i)-s)) * B(s);
+	    y(:,i) = expA * y0 + integral(integrand, 0, t(i), 'ArrayValued', true);
+	end
+	
+	figure(2),plot(t, y(1,:),t,y(2,:));
+	title('Графика на y по метода на матричната експонента');
+	xlabel('x');
+	ylabel('y');
+	legend('y1', 'y2', 'Location', 'northwest', 'Orientation', 'vertical');
+	
+	end
+	
+	function f = myFunction(x)
+	f = x*exp(-2*x);
+	end
+	\end{verbatim}
+
+\includegraphics{secondTask_01.eps}
 
 \newpage
 \subsection{Задача 3}

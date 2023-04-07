@@ -1,10 +1,8 @@
 
 % This LaTeX was auto-generated from MATLAB code.
 % To make changes, update the MATLAB code and republish this document.
-\documentclass[a4paper,fleqn,12pt]{article}
 
-\usepackage[utf8]{inputenc}
-\usepackage[bulgarian]{babel}
+\documentclass{article}
 \usepackage{graphicx}
 \usepackage{color}
 
@@ -15,21 +13,24 @@
 \begin{document}
 
     
-\begin{verbatim}
+    \begin{verbatim}
 function firstTask
 % Дефиниране на началните условия
 y0 = [0; -1/6];
 x0 = 0;
 % Дефиниране на стъпката и броя на стъпките
 h = 0.1;
-n = 100;
+n = 150;
 % Използване на RK4 функцията
 [x, y] = RK4(@system, x0, y0, h, n);
 % Графика на резултатите
-plot(x,y(1,:),x,y(2,:));
+figure(1),plot(x,y(1,:),x,y(2,:));
 title('Решение на системата по Рунге-Кута');
-legend('y1', 'y2', 'Location', 'southwest', 'Orientation', 'vertical');
+legend('y1', 'y2', ...
+    'Location', 'southwest', ...
+    'Orientation', 'vertical');
 xlabel('x');
+ylabel('y');
 end
 
 function [x, y] = RK4(f, x0, y0, h, n)
