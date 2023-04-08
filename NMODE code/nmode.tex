@@ -251,7 +251,17 @@ end
 \begin{equation*}
 	x''(t)=f(t,x,x') \qquad t \in [a;b] \qquad x(a) = \alpha \qquad x(b) = \beta
 \end{equation*}
-Метода се състои в
+Метода се състои в следните стъпки
+\begin{enumerate}
+\item Определяне на начална стойност
+\item Разделяне на интервала на $n-1$ равни части
+\item Намиране на разликите между стойностите на функцията в съседни точки. Често използвани формули са 
+	\begin{equation*}
+	x'(t) = \frac{y_{i+1} - y_{i-1}}{2h} \qquad \qquad x''(t) = \frac{y_{i+1} - 2y_i + y_{i-1}}{h^2}
+	\end{equation*}
+\item Замяна на производните със съответните разлики.
+\item Решаване на системата от линейни уравнения.
+\end{enumerate}
 
 \newpage
 \begin{verbatim}
@@ -304,6 +314,27 @@ end
 \begin{equation*}
 	x''(t)=f(t,x,x') \qquad t \in [a;b] \qquad x(a) = \alpha \qquad x(b) = \beta
 \end{equation*}
+Метода се състои в следните стъпки
+\begin{enumerate}
+\item Представяне на началната задача като система от две уравнения от първи ред
+	\begin{equation*}
+		\begin{array}{|l@{}}
+		 x'=y\\
+		 y'= f(t,x,x')
+		\end{array}\qquad \qquad  \text{при} \qquad \qquad 
+		\begin{array}{|l@{}}
+		x(a)=\alpha\\
+		x(b)=\beta \\
+		y(1) = y(4) = s
+		\end{array}
+	\end{equation*}
+\item Задаваме си начално предположение за стойността на параметъра $s=a$.
+\item \label{3}Решаваме получената система от диференциални уравнения с началните условия, използвайки числен метод.
+\item Изчисляваме стойността на функцията получената от \ref{3}. функция $x$ в $t=b$.
+\item Изчисляваме разликата между изчислената стойност на $x$ в края на интервала и действителната стойност на $x$ в краен момент, която е дадена в началните условия.
+\item \label{6} Коригираме началното предположение за параметъра.
+\item Повтаряме стъпки стъпки \ref{3} - \ref{6}, докато корекцията не стане достатъчно малка.
+\end{enumerate}
 \newpage
 \begin{verbatim}
 function fourthTask
