@@ -50,4 +50,129 @@
 \raggedright
 
 \end{titlepage}
+\tableofcontents
+\newpage
+
+\section{Задание}
+За математическия модел на съжителство на две популации
+\begin{gather*}
+		\begin{array}{|l@{}} \tag{$\ast$}
+		\dot{N_1} = \left(a - bN_1 - \sigma N_2 \right) N_1 \qquad a,b,\sigma > 0\\
+		\dot{N_2} = \left(c - \nu N_1 - d N_2 \right) N_2 \qquad c,d,\nu > 0 \\
+		\end{array} \\
+\text{са въведени следните означения} \\
+\Delta = \begin{pmatrix}b & \sigma \\ \nu & d \end{pmatrix} \qquad 
+\Delta_1 = \begin{pmatrix}a & \sigma \\ c & d \end{pmatrix} \qquad 
+\Delta_2 = \begin{pmatrix}b & a\\ \nu & c \end{pmatrix}
+\end{gather*}
+Изследвайте вида на особенните точки, 
+фазова картина, компютърна реализация, 
+съответни чертежи и биологични изводи, ако е изпълнено
+	\begin{equation*}
+	\Delta > 0 \qquad \Delta_1 > 0 \qquad \Delta_2 > 0
+	\end{equation*}
+\section{Решение}
+\subsection{Особенни точки}
+Oсобенните точки се получават като решение на системата
+\begin{gather*}
+		\begin{array}{|l@{}}
+		\left(a - bN_1 - \sigma N_2 \right) N_1 = 0\\
+		\left(c - \nu N_1 - d N_2 \right) N_2 = 0 \\
+		\end{array}  \\ 
+		\text{Решенията са} \\
+		\begin{array}{|l@{}}
+		 N_1 = 0\\
+		 N_2 = 0 \\
+		\end{array}
+		 \qquad \qquad 
+		\begin{array}{|l@{}}
+		 N_1 = 0\\
+		 N_2 = \frac{c}{d} \\
+		\end{array}
+		\qquad \qquad 
+		\begin{array}{|l@{}}
+		 N_1 = \frac{a}{b}\\
+		 N_2 = 0 \\
+		\end{array}
+		\qquad \qquad 
+		\begin{array}{|l@{}}
+		 N_1 = \frac{\Delta_1}{\Delta} \\
+		 N_2 = \frac{\Delta_2}{\Delta} \\
+		\end{array}
+\end{gather*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
