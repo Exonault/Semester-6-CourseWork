@@ -1,0 +1,308 @@
+\documentclass[a4paper,fleqn,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{amsthm}
+\usepackage{graphicx}
+
+%\pagestyle{fancy}
+%\fancyhf{}
+%\lhead{\rightmark}
+%\rhead{\thepage}
+%\cfoot{}
+%\renewcommand{\headrulewidth}{0pt}
+
+
+\begin{document}
+\begin{titlepage}
+	\setlength{\parindent}{0pt}
+	\large
+\centering
+Технически университет -  София \par
+Факултет по приложна математика и информатика \par
+\vspace{2cm}
+
+{\huge Курсова работа \par}
+
+\vspace{2cm}
+
+\vspace{1cm}
+{\LARGE\scshape  Математическа Екология \par}
+
+
+
+\vfill
+
+\begin{minipage}[t]{.5\linewidth}
+	Студент: \\
+	Кристиян Кръчмаров
+\end{minipage}%
+\begin{minipage}[t]{.5\linewidth}
+	\raggedleft
+	Преподавател:\\
+	проф. дмн. Людмил Каранджулов
+\end{minipage}
+
+\vspace{2cm}
+\raggedright
+
+\end{titlepage}
+\tableofcontents
+\newpage
+
+\section{Задание}
+За математическия модел на съжителство на две популации
+\begin{gather*}
+		\begin{array}{|l@{}} \tag{$\ast$}
+		\dot{N_1} = \left(a - bN_1 - \sigma N_2 \right) N_1 \qquad a,b,\sigma > 0\\
+		\dot{N_2} = \left(c - \nu N_1 - d N_2 \right) N_2 \qquad c,d,\nu > 0 \\
+		\end{array} \\
+\text{са въведени следните означения} \\
+\Delta = \begin{pmatrix}b & \sigma \\ \nu & d \end{pmatrix} \qquad 
+\Delta_1 = \begin{pmatrix}a & \sigma \\ c & d \end{pmatrix} \qquad 
+\Delta_2 = \begin{pmatrix}b & a\\ \nu & c \end{pmatrix}
+\end{gather*}
+Изследвайте вида на особенните точки, 
+фазова картина, компютърна реализация, 
+съответни чертежи и биологични изводи, ако е изпълнено
+	\begin{equation*}
+	\Delta > 0 \qquad \Delta_1 > 0 \qquad \Delta_2 > 0
+	\end{equation*}
+
+\newpage
+\section{Решение}
+\subsection{Особенни точки}
+Oсобенните точки се получават като решение на системата
+\begin{gather*}
+		\begin{array}{|l@{}}
+		\left(a - bN_1 - \sigma N_2 \right) N_1 = 0\\
+		\left(c - \nu N_1 - d N_2 \right) N_2 = 0 \\
+		\end{array}
+\end{gather*}
+
+\subsubsection{Първи случай}
+\begin{gather*}
+	\begin{array}{|l@{}}\tag{$I$}
+		 N_1 = 0\\
+		 N_2 = 0 \\
+	\end{array}
+\end{gather*}
+\subsubsection{Втори случай}
+\begin{gather*}
+	\begin{array}{|l@{}}\tag{$II$}
+		 N_1 = 0\\
+		 N_2 \neq 0 \\
+	\end{array} \implies c - dN_2 = 0 \implies 
+	\begin{array}{|l@{}}
+		 N_1 = 0\\
+		 N_2 = \frac{c}{d}
+	\end{array}
+\end{gather*}
+\subsubsection{Трети случай}
+\begin{gather*}
+	\begin{array}{|l@{}}\tag{$III$}
+		 N_1 \neq 0\\
+		 N_2 = 0 \\
+	\end{array} \implies a- bN_1 = 0 \implies 
+	\begin{array}{|l@{}}
+		 N_1 = \frac{a}{b}\\
+		 N_2 = 0
+	\end{array} 
+\end{gather*}
+\subsubsection{Четвърти случай}
+\begin{gather*}
+	\begin{array}{|l@{}}
+		 N_1 \neq 0\\
+		 N_2 \neq 0 
+	\end{array} \implies 
+	\begin{array}{|l@{}}
+		a - bN_1 - \sigma N_2 = 0\\
+		c - \nu N_1 - d N_2  = 0
+	\end{array} \iff 
+		\begin{array}{|l@{}}
+		 bN_1 + \sigma N_2 = a\\
+		\nu N_1 + d N_2  = c
+	\end{array}\implies \\
+	\begin{array}{|l@{}}\tag{$IV$}
+		 N_1 = \frac{\Delta_1}{\Delta} \\
+		 N_2 = \frac{\Delta_2}{\Delta}
+	\end{array} \qquad \text{(Крамер)} 
+\end{gather*}
+
+\subsection{Линеаризация}
+Линеаризацията се получава като се замести в ($\ast$)
+\begin{gather*}
+	\begin{array}{|l@{}}
+		 N_1 - \alpha = y_1\\
+		 N_2 - \beta = y_2 
+	\end{array} \iff
+	\begin{array}{|l@{}}
+		 N_1 =  y_1 + \alpha\\
+		 N_2= y_2 + \beta
+	\end{array}
+\end{gather*}
+където $(\alpha, \beta)$ е особенна точка и се вземе линейната част за всяка една променлива $y_1, y_2$
+
+\begin{gather*}
+	W = \begin{pmatrix} a&0\\0&c \end{pmatrix} \\
+	W = \begin{pmatrix} a - \frac{\sigma c}{d} & 0\\ - \frac{\nu c}{d}& -c \end{pmatrix} \\
+	W = \begin{pmatrix} -a & - \frac{\sigma a}{b}\\0& c - \frac{\nu a}{b} \end{pmatrix} \\
+	W = \frac{1}{\Delta} \begin{pmatrix} b\Delta_1 & \sigma\Delta_1 \\ \nu\Delta_2 & d\Delta_2 \end{pmatrix} \text{?!?!}
+\end{gather*}
+\subsubsection{Първи случай}
+\begin{gather*}
+	\begin{array}{|l@{}}%\tag{$I$}
+		 N_1 - 0 = y_1\\
+		 N_2 - 0 = y_2
+	\end{array} \iff 
+	\begin{array}{|l@{}}%\tag{$I$}
+		 N_1 = y_1\\
+		 N_2 = y_2
+	\end{array} \implies
+	\begin{array}{|l@{}}
+		\dot{y_1} = \left(a - by_1 - \sigma y_2 \right) y_1\\
+		\dot{y_1} = \left(c - \nu y_1 - d y_2 \right) y_2 
+	\end{array} \iff \\ \\
+	\begin{array}{|l@{}}
+		\dot{y_1} = ay_1 - by_1 ^2- \sigma y_1 y_2 \\
+		\dot{y_1} = cy_2 - \nu y_1y_2 - d y_2 ^2 
+	\end{array} 
+\implies  W = \begin{pmatrix} a&0\\0&c \end{pmatrix} \tag{$I$}
+\end{gather*}
+\subsubsection{Втори случай}
+\begin{gather*}
+	\begin{array}{|l@{}}%\tag{$I$}
+		 N_1 - 0 = y_1\\
+		 N_2 - \frac{c}{d}= y_2
+	\end{array} \iff 
+	\begin{array}{|l@{}}%\tag{$I$}
+		 N_1 = y_1\\
+		 N_2 = y_2 + \frac{c}{d}
+	\end{array} \implies
+	\begin{array}{|l@{}}
+		\dot{y_1} = \left[a - by_1 - \sigma \left(y_2 + \frac{c}{d} \right) \right] y_1\\
+		\dot{y_2} = \left[c - \nu y_1 - d \left(y_2 + \frac{c}{d} \right) \right] \left(y_2 + \frac{c}{d} \right) 
+	\end{array} \iff \\ \\
+	\begin{array}{|l@{}}
+		\dot{y_1} = ay_1 - by_1 ^2- \sigma y_1 y_2 - \frac{\sigma c}{d} y_1\\
+		\dot{y_2} = \left[c - \nu y_1 - dy_2 -c \right] \left(y_2 + \frac{c}{d} \right)  
+	\end{array} 
+\implies  W = \begin{pmatrix} a&0\\0&c \end{pmatrix} \tag{$II$}
+\end{gather*}
+\subsubsection{Трети случай}
+%\begin{gather*}
+%	\begin{array}{|l@{}}\tag{$III$}
+%		 N_1 \neq 0\\
+%		 N_2 = 0 \\
+%	\end{array} \implies a- bN_1 = 0 \implies 
+%	\begin{array}{|l@{}}
+%		 N_1 = \frac{a}{b}\\
+%		 N_2 = 0
+%	\end{array} 
+%\end{gather*}
+\subsubsection{Четвърти случай}
+%\begin{gather*}
+%	\begin{array}{|l@{}}
+%		 N_1 \neq 0\\
+%		 N_2 \neq 0 
+%	\end{array} \implies 
+%	\begin{array}{|l@{}}
+%		a - bN_1 - \sigma N_2 = 0\\
+%		c - \nu N_1 - d N_2  = 0
+%	\end{array} \iff 
+%		\begin{array}{|l@{}}
+%		 bN_1 + \sigma N_2 = a\\
+%		\nu N_1 + d N_2  = c
+%	\end{array}\implies \\
+%	\begin{array}{|l@{}}\tag{$IV$}
+%		 N_1 = \frac{\Delta_1}{\Delta} \\
+%		 N_2 = \frac{\Delta_2}{\Delta}
+%	\end{array} \qquad \text{(Крамер)} 
+%\end{gather*}
+
+\subsection{Собствени стойностти}
+$$\det(W-\lambda I) = 0$$
+%\begin{enumerate}
+%    \item[(i)] First item
+%    \item[(ii)] Second item
+%    \item[(iii)] Third item
+%\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
