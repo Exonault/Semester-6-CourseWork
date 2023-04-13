@@ -143,7 +143,7 @@ Mетодът на Рунге-Кута от 4ти ред се използва �
 	[x, y] = RK4(@system, x0, y0, h, n);
 	figure(1),plot(x,y(1,:),x,y(2,:));
 	title('Решение на системата по Рунге-Кута');
-	legend('y1', 'y2', 'Location', 'southwest', 'Orientation', 'vertical');
+	legend('y_1', 'y_2', 'Location', 'southwest', 'Orientation', 'vertical');
 	xlabel('x');
 	ylabel('y');
 	end
@@ -234,7 +234,7 @@ figure(2),plot(t, y(1,:),t,y(2,:));
 title('Графика на y по метода на матричната експонента');
 xlabel('x');
 ylabel('y');
-legend('y1', 'y2', 'Location', 'northwest', 'Orientation', 'vertical');
+legend('y_1', 'y_2', 'Location', 'northwest', 'Orientation', 'vertical');
 
 end
 

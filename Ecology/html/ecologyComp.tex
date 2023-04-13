@@ -1,17 +1,31 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{color}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    \begin{verbatim}
 function ecologyComp
 % Параметри на системата
-a = 1;b = 8;sigma = 0.2;
-c = 3;nu = 0.3;d = 7;
-N0 = [2; 2];
-    ecologyCompGraph(a,b,sigma,c,nu,d,N0,1)
-% a = 10;b = 0.1;sigma = 0.9;
-% c = 9;nu = 0.3;d = 0.7;
-% N0 = [1; 1];
-%     ecologyCompGraph(a,b,sigma,c,nu,d,N0,2)
+a = 1;b = 3;sigma = 0.2;c = 3;nu = 0.3;d = 2;
+ecologyCompGraph(a,b,sigma,c,nu,d,1)
+a = 1;b = 0.5;sigma = 0.5;c = 1;nu = 0.4;d = 0.7;
+ecologyCompGraph(a,b,sigma,c,nu,d,2)
+
 end
 
-function ecologyCompGraph(a,b,sigma,c,nu,d,N0,i)
+function ecologyCompGraph(a,b,sigma,c,nu,d,i)
 % Дефиниране на началните условия и интервала на времето
+N0 = [2; 2];
 tspan = [0 100];
 
 % Дефиниране на функцията, която описва системата
@@ -27,4 +41,11 @@ legend('N_1', 'N_2', 'Location' , 'best');
 xlabel('Time');
 ylabel('Population');
 end
+\end{verbatim}
+
+\includegraphics [width=4in]{ecologyComp_01.png}
+
+
+
+\end{document}
 

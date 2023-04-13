@@ -19,7 +19,7 @@ figure(2),plot(t, y(1,:),t,y(2,:));
 title('Графика на y по метода на матричната експонента');
 xlabel('x');
 ylabel('y');
-legend('y1', 'y2', 'Location', 'northwest', 'Orientation', 'vertical');
+legend('y_1', 'y_2', 'Location', 'northwest', 'Orientation', 'vertical');
 
 end
 
