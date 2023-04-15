@@ -8,7 +8,6 @@
 \usepackage{fancyhdr}
 \usepackage{amsthm}
 \usepackage{graphicx}
-\usepackage{pdfpages}
 \usepackage{color}
 
 %\pagestyle{fancy}
@@ -21,7 +20,6 @@
 %\sloppy
 %\definecolor{lightgray}{gray}{0.5}
 %\setlength{\parindent}{0pt}
-
 
 
 \begin{document}
@@ -74,7 +72,7 @@
 		y_2(0) = y_{20}
 		\end{array}\\
 		\text{където:} \nonumber \\
-		f(x,y_1,y_2) = -axy_2 - x^2y_1 \quad a=0.05 \quad y_{20} = -\frac{1}{6} \nonumber
+		f(x,y_1,y_2) = -axy_2 - x^2y_1 \quad a=0.05 \quad y_{20} = \frac{1}{6} \nonumber
 	\end{gather}
 
 \subsection{Задача 2}
@@ -117,63 +115,41 @@ Mетодът на Рунге-Кута от 4ти ред се използва �
 като използва няколко променливи за изчисляване на инкрементацията. 
 При Метод на Рунге-Кута от 4ти ред се използват следните променливи
 	\begin{gather*}
-		k_{1,1} = h \cdot f(x_i,y_{1i}, y_{2i})\\
-		k_{2,1} = h \cdot f \left(x_i + \frac{h}{2}, y_{1,i} + \frac{k_{1,1}}{2}, y_{2,i} + \frac{k_{1,2}}{2}\right)\\
-		k_{3,1} = h \cdot f \left(x_i + \frac{h}{2}, y_{1,i} + \frac{k_{2,1}}{2}, y_{2,i} + \frac{k_{2,2}}{2}\right)\\
-		k_{4,1} = h \cdot f \left(x_i + h, y_{1,i} + k_{3,1}, y_{2,i} + k_{3,2}\right)\\
-		y_{1,i+1} = y_{1,i} + \frac{1}{6} \left( k_{1,1} +2k_{2,1} + 2k_{3,1} + k_{4,1}\right)h\\
-		\\
-		k_{1,2} = h \cdot g(x_i,y_{1i}, y_{2i})\\
-		k_{2,2} = h \cdot g \left(x_i + \frac{h}{2}, y_{1,i} + \frac{k_{1,1}}{2}, y_{2,i} + \frac{k_{1,2}}{2}\right)\\
-		k_{3,2} = h \cdot g \left(x_i + \frac{h}{2}, y_{1,i} + \frac{k_{2,1}}{2}, y_{2,i} + \frac{k_{2,2}}{2}\right)\\
-		k_{4,2} = h \cdot g \left(x_i + h, y_{1,i} + k_{3,1}, y_{2,i} + k_{3,2} \right) \\
-		y_{2,i+1} = y_{2,i} + \frac{1}{6} \left( k_{1,2} +2k_{2,2} + 2k_{3,2} + k_{4,2}\right)h\\
+		Y_i = \{y_1,y_2 \} \\
+		k_1 = h \cdot f(x_i,Y_i)\\
+		k_2 = h \cdot f \left(x_i + \frac{h}{2},  Y_i + \frac{h}{2}\cdot k_1\right)\\
+		k_3 = h \cdot f \left(x_i + \frac{h}{2},  Y_i + \frac{h}{2}\cdot k_2 \right)\\
+		k_4 = h \cdot f \left(x_i + h,  Y_i + h \cdot k_3\right)\\
+		Y_{i+1} = Y_{i} + \frac{h}{6} \left( k_1 +2k_2 + 2k_3 + k_4\right)\\
 \end{gather*}
-където $y_{1,i}$ и $y_{2,i}$ са предходни приближения, а $y_{1,i+1}$ и $y_{2,i+1}$ са текущи приближения. \\
+където $Y_{i}$ e предходното приближение, а $Y_{i+1}$ e текущoтo приближениe. \\
 	\newpage
-	\begin{verbatim}
-	function firstTask
-	% Дефиниране на началните условия
-	y0 = [0; -1/6];
-	x0 = 0;
-	% Дефиниране на стъпката и броя на стъпките
-	h = 0.1;
-	n = 150;
-	% Използване на RK4 функцията
-	[x, y] = RK4(@system, x0, y0, h, n);
-	figure(1),plot(x,y(1,:),x,y(2,:));
-	title('Решение на системата по Рунге-Кута');
-	legend('y_1', 'y_2', 'Location', 'southwest', 'Orientation', 'vertical');
-	xlabel('x');
-	ylabel('y');
-	end
-	
-	function [x, y] = RK4(f, x0, y0, h, n)
-	% f - функция, която връща дясната част на системата
-	% x0 - начална точка за решението
-	% y0 - началните условия
-	% h - стъпка на метода
-	% n - брой стъпки
-	
-	x = x0 + (0:n-1)*h;  % Изчисляваме x стойностите
-	y = zeros(length(y0), n);  % Създаваме матрица за y
-	y(:,1) = y0;  % Запазваме началните условия в първата колона на y
-	for i = 1:n-1
-	    k1 = f(x(i), y(:,i));
-	    k2 = f(x(i)+0.5*h, y(:,i)+0.5*h*k1);
-	    k3 = f(x(i)+0.5*h, y(:,i)+0.5*h*k2);
-	    k4 = f(x(i)+h, y(:,i)+h*k3);
-	    y(:,i+1) = y(:,i) + h*(k1+2*k2+2*k3+k4)/6;  % Изчисляваме y_i+1
-	end
-	end
-	
-	function dydx = system(x, y)
-	a = 0.05;
-	dydx = [y(2); -a*y(2) - x^2*y(1)];
-	end
-	\end{verbatim}
+\begin{verbatim}
+function firstTask
+h=0.1;%стъпка
+x=0:h:10;
+n=length(x);%итерации
+y(1,1)=0; y(2,1) = 0.16;%начални условия
+for i=1:(n-1)
+    k1=h*system (x(i), y(1:2,i));
+    k2=h*system (x(i) + h/2, y(1:2, i) + h*k1/2);
+    k3=h*system (x (i) + h/2, y(1:2, i) + h*k2/2);
+    k4=h*system (x(i) + h, y(1:2, i) +h*k3);
+    y(1:2, i+1)=y(1:2, i) + (h*(k1+2*k2+2*k3+k4))/6;
+end
+figure (1), plot (x,y (1, :),x,y(2,:));
+legend('y_1', 'y_2','Location', 'best');
+title('Решение на системата по Рунге-Кута');
+end
 
-\includegraphics{firstTask_01.eps}
+function f = system (x, y)
+    f(1,1)=y(2);
+    f(2,1)=0.05*x*y(2)-x^2*y(1);
+end
+\end{verbatim}
+\begin{center}
+\includegraphics [width=4in]{firstTask_01.eps}
+\end{center}
 
 \newpage
 \subsection{Задача 2}
@@ -197,53 +173,52 @@ Mетодът на Рунге-Кута от 4ти ред се използва �
 		\begin{pmatrix} y_1 \\ y_2 \end{pmatrix}' = 
 		\begin{pmatrix} 0 & 1 \\ 0 & -3 \end{pmatrix} 
 		\begin{pmatrix} y_1 \\ y_2 \end{pmatrix} + 
-		\begin{pmatrix} 0 \\ xe^{-2x} \end{pmatrix} \iff Y'=AY+B\\ 
+		\begin{pmatrix} 0 \\ xe^{-2x} \end{pmatrix} \iff Y'=AY+B(x)\\ 
 		Y'=\begin{pmatrix} y1 \\ y2 \end{pmatrix}' \qquad 
 		A=\begin{pmatrix} 0 & 1 \\ 0 & -3 \end{pmatrix} \qquad 
-		B=\begin{pmatrix} 0 \\ xe^{-2x} \end{pmatrix} \qquad
+		B(x)=\begin{pmatrix} 0 \\ xe^{-2x} \end{pmatrix} \qquad
 		Y=\begin{pmatrix} y1 \\ y2 \end{pmatrix}
 	\end{gather*}
 Решението на уравнението се дава във вида
 \begin{equation*}
-	y(x)=e^{A(x-x_0)} y(x_0) + e^{Ax} \int_{x0} ^{x} e^{-As} B(s) \ ds
+	y(x)=e^{A(x-x_0)} y(x_0) + e^{Ax} \int_{x_0} ^{x} e^{-As} B(s) \ ds
 \end{equation*}
-Но, тъй като по условие имаме нулеви начални условия $(y(x_0)=0)$, следва че 
+което може да се дискретизира след полагане на $x_0 = kh, \, x = (k+1)h$. След полагането и апроксимиране на 
+интеграла по метода на трапеците се получава
 \begin{equation*}
-	y(x)=e^{Ax} \int_{x0} ^{x} e^{-As} B(s) \ ds
+	y((k+1)h)= e^{Ah}y(kh) + \frac{h}{2} \left[ e^{Ah}Bu(kh) + Bu((k+1)h) \right]
 \end{equation*}
+
 \newpage
 \begin{verbatim}
 function secondTask
-A = [0, 1; -3, 0]; % матрица на коефициенти
-B = @(x)[0; myFunction(x)]; % свободни коефициенти
-expA = expm(A); % матрична експонента
-
-% начални условия
-y0 = [0; 0];
-% създаване на масив от времеви точки
-t = linspace(0, 10, 200);
-% създаване на масив за съхранение на резултатите
-y = zeros(length(y0), length(t));
-
-for i = 1:length(t)
-    integrand = @(s) expm(A*(t(i)-s)) * B(s);
-    y(:,i) = expA * y0 + integral(integrand, 0, t(i), 'ArrayValued', true);
+A = [0, 1; 0, -3];%матрица от коефициенти
+B = [0;1];
+y0 = [0;0]; % начални условия
+h = 0.1; % стъпка
+n = 100; % итерации
+x1 = 0; x(1)=0; y1(1)=0; y2(1)=0;
+A2=expm(A*h);
+for i=2:n
+     y=A2*y0+(h/2)*(A2*B*myFunction(x1))+(B*myFunction(x1+h));
+     y1(i)=y(1); y2(i)=y(2);
+     y0=y;
+     x1=x1+h; x(i)=x1;
 end
-
-figure(2),plot(t, y(1,:),t,y(2,:));
-title('Графика на y по метода на матричната експонента');
+figure(2), plot(x,y1,x,y2);
 xlabel('x');
 ylabel('y');
-legend('y_1', 'y_2', 'Location', 'northwest', 'Orientation', 'vertical');
-
+legend('y_1', 'y_2', 'Location', 'best', 'Orientation', 'vertical');
+title('Решение по метода на матрична експонента');
 end
 
 function f = myFunction(x)
 f = x*exp(-2*x);
 end
 \end{verbatim}
-
-\includegraphics{secondTask_01.eps}
+\begin{center}
+\includegraphics[width=4in]{secondTask_01.eps}
+\end{center}
 
 \newpage
 \subsection{Задача 3}
@@ -253,60 +228,70 @@ end
 \end{equation*}
 Метода се състои в следните стъпки
 \begin{enumerate}
-\item Определяне на начална стойност
-\item Разделяне на интервала на $n-1$ равни части
-\item Намиране на разликите между стойностите на функцията в съседни точки. Често използвани формули са 
+\item Заменят се производните с техните приближения чрез крайни разлики
 	\begin{equation*}
-	x'(t) = \frac{y_{i+1} - y_{i-1}}{2h} \qquad \qquad x''(t) = \frac{y_{i+1} - 2y_i + y_{i-1}}{h^2}
+	x'(t) = \frac{y_{i+1} - y_{i-1}}{2h} \qquad \qquad x''(t) = \frac{y_{i+1} - 2y_i + y_{i-1}}{h^2} \qquad \qquad x(t_i) = y_i
 	\end{equation*}
-\item Замяна на производните със съответните разлики.
-\item Решаване на системата от линейни уравнения.
+\item Решаване на системата от уравнения.
+	\begin{equation*}
+		\begin{array}{|l@{}}
+			y_0 = \alpha\\ 
+			\frac{y_{i+1} - 2y_i + y_{i-1}}{h^2} =  f \left(t_i, y_i, \frac{y_{i+1} - y_{i-1}}{2h}\right),  1\leq i \leq n-1 \\
+			y_n = \beta
+		\end{array}
+	\end{equation*}
 \end{enumerate}
-
+но тази система е доста трудоемка за решаване. Задачата има вида
+	\begin{equation*}
+	a(t)x'' + b(t)x'+c(t)x=d(t) \qquad a(t) = 1 \quad  b(x) = \frac{1}{t} \quad  c(t) = \left( \frac{16}{t^2}\right) 
+\quad d(t) = \sin \left( \frac{1}{t^2}\right)
+	\end{equation*}
+Можем да заместим производните с техните приближения. Ще положим 
+	\begin{gather*}
+	a_i = a(t_i) \qquad b_i = b(t_i) \qquad c_i = c(t_i) \qquad d_i = d(t_i) \\
+	a_i \frac{y_{i+1} - 2y_i + y_{i-1}}{h^2} + b_i \frac{y_{i+1} - y_{i-1}}{2h} + c_i y_i = d_i \\
+	y_{i-1} \left(\frac{a_i}{h^2} - \frac{b_i}{2h} \right) + 
+	y_i \left( - \frac{2a_i}{h^2} + c_i \right) + 
+	y_{i+1}\left(\frac{a_i}{h^2} + \frac{b_i}{2h} \right) = d_i \qquad \qquad \Big| \cdot -h^2 \\
+	y_{i-1} \left(-a_i + \frac{hb_i}{2} \right) + 
+	y_i \left(2a_i - c_i h^2 \right) + 
+	y_{i+1} \left(-a_i - \frac{hb_i}{2} \right) = -h^2 d_i \\
+	A_{i,i-1} = -a_i + \frac{hb_i}{2} = \frac{h}{2t_i} - 1 \qquad 
+	A_{i,i} = 2a_i - c_i h^2  = 2-\frac{16h^2}{t_i ^2} \\
+	A_{i,i+1} = -a_i - \frac{hb_i}{2} = - \frac{h}{2t_i} - 1 \qquad 
+	f_i = -h^2 d_i = -h^2 \sin \left( \frac{1}{t^2}\right)
+	\end{gather*}
 \newpage
+
 \begin{verbatim}
 function thirdTask
-% Задаване на параметри
 a = 1; b = 4; % граници на интервала
-alpha = -0.3;  beta = 0.4; %x(a)=alpha; x(b)=beta
-n = 150; % брой точки на дискретизация
-h = (b-a)/(n+1); % стъпка на дискретизация
-
+alpha = -0.3; beta = 0.4; %x(a)=alpha; x(b)=beta
+n = 100; % итерации
+h = (b-a)/(n+1); % стъпка
+t=a:h:b;
 % Дефиниране на матрицата на коефициентите и вектора на дясната страна
-A = zeros(n,n);
-f = zeros(n,1);
+A = zeros(n,n); f = zeros(n,1);
 for i = 1:n
-    ti = a + i*h;
-    A(i,i) = -2/h^2 + 16/ti^2;
-    f(i) = h^2*sin(1/ti^2);
-    if i ~= 1
-        A(i,i-1) = 1/h^2 - 1/(2*h*ti);
-    end
-    if i ~= n
-        A(i,i+1) = 1/h^2 + 1/(2*h*ti);
-    end
+    if i ~= 1; A(i,i-1) = h/(2*t(i)) - 1; end
+    A(i,i) = 2 - (16*h^2)/(t(i)^2);
+    if i ~= n; A(i,i+1) = -h/(2*t(i)) - 1; end
+    f(i) = -h^2*sin(1/t(i)^2);
 end
-
 % Прилагане на граничните условия
 A(1,:) = 0; A(1,1) = 1;
-f(1) = alpha;
 A(n,:) = 0; A(n,n) = 1;
-f(n) = beta;
-
+f(1) = f(1) - alpha*(h/(2*t(1)) - 1);
+f(n) = f(n) - beta*(-h/(2*t(n)) - 1);
 % Решаване на системата
 x = A\f;
-
-% Визуализация на решението
-t = linspace(a,b,n+2);
-xx=[alpha;x;beta];
-figure(3),plot(t,xx);
-xlabel('t');
-ylabel('x(t)');
-title('Решение по метода на крайните приближения');
+figure(3),plot(t,[alpha;x;beta]);
+xlabel('t'); ylabel('x(t)'); title('Решение по метода на крайните приближения');
 end
 \end{verbatim}
-
-\includegraphics{thirdTask_01.eps}
+\begin{center}
+  \includegraphics[width=4in]{thirdTask_01.eps}
+\end{center}
 
 \newpage
 \subsection{Задача 4}
@@ -336,6 +321,7 @@ end
 \item Повтаряме стъпки стъпки \ref{3} - \ref{6}, докато корекцията не стане достатъчно малка.
 \end{enumerate}
 \newpage
+
 \begin{verbatim}
 function fourthTask
 t0=0;
@@ -345,7 +331,7 @@ x0=[-0.3,t0];
 figure(4),plot(t,x(:,1),t,x(:,2),'r')
 xlabel('t');
 ylabel('x(t)');
-legend('x(t)', "x'(t)", 'Location', 'northeast');
+legend('x(t)',"x'(t)", 'Location', 'best');
 title('Решение по метода на стрелбата');
 end
 
@@ -356,12 +342,15 @@ n=length(t);
 f=x(n,1)-0.4;
 end
 
-function dy=function2(t,x)
-dy(1,1)=x(2);
-dy(2,1)=sin(1/t^2)-(16/t^2)-(x(1)/t);
+function dx=function2(t,x)
+dx(1,1)=x(2);
+dx(2,1)=sin(1/t^2)-(16/t^2)*x(1)-(x(2)/t);
 end
-\end{verbatim}
-\includegraphics {fourthTask_01.eps}
+\end{verbatim} 
+
+\begin{center}
+\includegraphics [width=4in]{fourthTask_01.eps}
+\end{center}
 
 
 
