@@ -4,10 +4,10 @@ a = 5;b = 2;sigma = 2;
 c = 3;nu = 1;d = 6;
 N0 = [1; 1];
 ecologyCompGraph(a,b,sigma,c,nu,d,N0,1)
-% a = 4;b = 3;sigma = 6;
-% c = 2;nu = 5;d = 1;
-% N0 = [1; 1];
-% ecologyCompGraph(a,b,sigma,c,nu,d,N0,2)
+a = 1;b = 2;sigma = 1;
+c = 2;nu = 1;d = 3;
+N0 = [1; 1];
+ecologyCompGraph(a,b,sigma,c,nu,d,N0,2)
 end
 
 function ecologyCompGraph(a,b,sigma,c,nu,d,N0,i)
