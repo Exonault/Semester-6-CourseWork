@@ -23,10 +23,9 @@ A(n,:) = 0; A(n,n) = 1;
 f(1) = f(1) - alpha*(h/(2*t(1)) - 1);
 f(n) = f(n) - beta*(-h/(2*t(n)) - 1);
 % Решаване на системата
-%x = A\f;
-% Визуализация на решението
-%xx=[alpha;x;beta];
-figure(3),plot(t,[alpha;A\f;beta]);
+x = A\f;
+xx=[alpha;x;beta];
+figure(3),plot(t,xx);
 xlabel('t');
 ylabel('x(t)');
 title('Решение по метода на крайните приближения');

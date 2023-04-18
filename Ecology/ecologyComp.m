@@ -1,13 +1,13 @@
 function ecologyComp
 % Параметри на системата
-% a = 1;b = 8;sigma = 0.2;
-% c = 3;nu = 0.3;d = 7;
-% N0 = [2; 2];
-%     ecologyCompGraph(a,b,sigma,c,nu,d,N0,1)
-% a = 10;b = 0.1;sigma = 0.9;
-% c = 9;nu = 0.3;d = 0.7;
+a = 5;b = 2;sigma = 2;
+c = 3;nu = 1;d = 6;
+N0 = [1; 1];
+ecologyCompGraph(a,b,sigma,c,nu,d,N0,1)
+% a = 4;b = 3;sigma = 6;
+% c = 2;nu = 5;d = 1;
 % N0 = [1; 1];
-%     ecologyCompGraph(a,b,sigma,c,nu,d,N0,2)
+% ecologyCompGraph(a,b,sigma,c,nu,d,N0,2)
 end
 
 function ecologyCompGraph(a,b,sigma,c,nu,d,N0,i)
