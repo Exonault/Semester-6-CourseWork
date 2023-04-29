@@ -9,6 +9,7 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{color}
+\usepackage{pdfpages}
 
 %\pagestyle{fancy}
 %\fancyhf{}
@@ -56,20 +57,55 @@
 \raggedright
 
 \end{titlepage}
+\pagenumbering{gobble}
 \tableofcontents
 \newpage
 
-\section{Задание}
+\includepdf[pages={1}]{course-work.pdf}
+\newpage
+\pagenumbering{arabic}
+\section{Решение}
+\subsection{Задача 1}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{task1-1.png}
+  \caption{Резултати}
+\end{figure}
 
+\subsubsection{А}
+$$
+S = -37.5395 + 0.6755 \cdot V + 1.0496 \cdot W
+$$
 
+\subsubsection{Б}
+$$
+R = 0.98 \qquad R^2 = 0.96 \implies \text{ модела описва добре изходните данни}
+$$
 
+\subsubsection{В}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.96\linewidth]{task1-2.png}
+  \caption{Резултати}
+\end{figure}
 
+\newpage
+\subsection{Задача 2}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.2\linewidth,height= 2in]{task2.png}
+  \caption{Резултати}
+\end{figure}
 
+\subsubsection{А}
+$$
+p=0.059333 > 0.05 \implies \text{ няма различие в годността за различните видове консерви}
+$$
 
-
-
-
-
+\subsubsection{Б}
+$$
+p=0.279913 > 0.05 \implies \text{ няма различие в годността за различните складове}
+$$
 
 
 
