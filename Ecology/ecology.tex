@@ -403,7 +403,7 @@ N0 = [1; 1];
 ecologyCompGraph(a,b,sigma,c,nu,d,N0,1)
 \end{verbatim}
 Където ecologyCompGraph е функцията представена в \ref{subsec:comp}. 
-Генерира следната графика:
+Генерира се следната графика:
 \begin{figure}[htp!]
 \centering
 \includegraphics [width=4in]{ecologyComp_01.eps}
@@ -443,7 +443,7 @@ N0 = [1; 1];
 ecologyCompGraph(a,b,sigma,c,nu,d,N0,2)
 \end{verbatim}
 Където ecologyCompGraph е функцията представена в \ref{subsec:comp}. 
-Генерира се следната графика. \\
+Генерира се следната графика.
 \begin{figure}[htp!]
 \centering
 \includegraphics [width=4in]{ecologyComp_02.eps}
@@ -452,13 +452,15 @@ ecologyCompGraph(a,b,sigma,c,nu,d,N0,2)
 И тук двете популации запазват своя брой константен.
 Тук стойността за $N_1$ е $0.2 = \frac{\Delta_1}{\Delta}$. 
 Аналогично за $N_2$ стойността е $0.6 = \frac{\Delta_2}{\Delta}$. \\
+\\
+\\
 Фазовия портрет на системата се генерира със следния код във Wolfram Mathematika.
 \begin{verbatim}
 StreamPlot[{(1-2*x-1*y)*x, (2-1*x-3*y)*y}, {x,0,1 }, {y,0,1 }]
 \end{verbatim}
 И тук е направено полагането $N_1 = x, N_2 = y$. 
 Кодът генерира следния фазов портрет.
-\begin{figure}[htp!]
+\begin{figure}[h]
 \centering
 \includegraphics [width=6in]{fazof-portret-primer-2.png}
 \caption{Фазов портет}
